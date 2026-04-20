@@ -11,6 +11,7 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Paint
+import androidx.compose.ui.graphics.ShaderBrush
 import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.unit.Dp
@@ -21,9 +22,9 @@ import com.finorix.signals.presentation.theme.NeonGreen30
 /**
  * Modifier for a subtle green glow border used on cards
  */
-fun Modifier.neonBorder(): Modifier = this.border(
+fun Modifier.neonBorder(color: Color = NeonGreen30): Modifier = this.border(
     width = 1.dp,
-    color = NeonGreen30,
+    color = color,
     shape = RoundedCornerShape(20.dp)
 )
 
@@ -153,7 +154,7 @@ fun Modifier.animatedGradientBorder(
     this.drawBehind {
         val paint = Paint().apply {
             this.asFrameworkPaint().isAntiAlias = true
-            this.shader = brush.createShader(size)
+            this.shader = (brush as ShaderBrush).createShader(size)
         }
         
         drawIntoCanvas { canvas ->

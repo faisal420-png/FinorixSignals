@@ -136,7 +136,6 @@ fun FilterRow(selected: String, onSelect: (String) -> Unit) {
 }
 
 @Composable
-@Composable
 fun SignalHistoryItem(signal: com.finorix.signals.domain.model.Signal, onClick: () -> Unit) {
     val sdf = SimpleDateFormat("HH:mm | dd MMM", Locale.US)
     val color = when (signal.outcome) {

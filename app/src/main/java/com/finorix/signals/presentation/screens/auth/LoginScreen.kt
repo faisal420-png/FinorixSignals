@@ -67,7 +67,7 @@ fun LoginScreen(
                 val credentialManager = CredentialManager.create(context)
                 val googleIdOption = GetGoogleIdOption.Builder()
                     .setFilterByAuthorizedAccounts(false)
-                    .setServerClientId("REPLACE_WITH_YOUR_WEB_CLIENT_ID") // Placeholder
+                    .setServerClientId("610218066370-huhpb7kfptek9b2aac8ksg57geetofn4.apps.googleusercontent.com")
                     .build()
 
                 val request = GetCredentialRequest.Builder()
