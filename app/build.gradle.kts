@@ -12,9 +12,17 @@ plugins {
 
 
 
+
+
+
+
 android {
     namespace = "com.finorix.signals"
     compileSdk = 34
+
+
+
+
 
 
 
@@ -25,6 +33,10 @@ android {
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
+
+
+
+
 
 
 
@@ -42,11 +54,19 @@ android {
 
 
 
+
+
+
+
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
             useSupportLibrary = true
         }
     }
+
+
+
+
 
 
 
@@ -62,18 +82,5 @@ android {
 
 
 
-            // @ts-ignore
-            configure<com.google.firebase.appdistribution.gradle.AppDistributionExtension> {
-                artifactType = "APK"
-                releaseNotesFile = "release-notes.txt"
-                groups = "beta-testers"
-            }
-        }
 
 
-
-
-        debug {
-            // @ts-ignore
-            configure<com.google.firebase.appdistribution.gradle.AppDistributionExtension> {
-                artifactType = "APK"
