@@ -16,6 +16,8 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
+class AuthRepositoryImpl @Inject constructor(
+    private val auth: FirebaseAuth,
     private val db: FirebaseFirestore,
     private val storage: com.google.firebase.storage.FirebaseStorage,
     private val analyticsHelper: com.finorix.signals.util.AnalyticsHelper,
@@ -72,6 +74,7 @@ import javax.inject.Singleton
             val credential = GoogleAuthProvider.getCredential(idToken, null)
             val authResult = auth.signInWithCredential(credential).await()
             val user = authResult.user
+            if (user != null) {
                 // Update Firestore for Google users too
                 createUserInFirestore(user)
                 analyticsHelper.logLogin("google")
