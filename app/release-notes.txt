@@ -1,0 +1,10 @@
+Finorix Signals Beta Release
+
+Features:
+- Live AI Signal Engine
+- Automated Outcome Tracking
+- Push Notifications
+- Profile Management
+- Premium Dark Theme
+
+Please test the Signal resolution and Notification reliability.

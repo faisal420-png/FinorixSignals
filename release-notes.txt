@@ -1,0 +1,4 @@
+Finorix Signals — Test Build
+- Real-time forex & crypto signals
+- OpenRouter AI explanations
+- Please report bugs via the Feedback button

@@ -1,0 +1,33 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // User profile and data isolation
+    match /users/{userId} {
+      allow read: if request.auth != null && request.auth.uid == userId;
+      allow create: if request.auth != null && request.auth.uid == userId;
+      
+      // Prevent users from manually upgrading their own plan
+      allow update: if request.auth != null && request.auth.uid == userId
+                    && !("plan" in request.resource.data.diff(resource.data).affectedKeys());
+      
+      allow delete: if false; // Account deletion handled via support/admin
+      
+      // Signal history isolation
+      match /signals/{signalId} {
+        allow read, write: if request.auth != null && request.auth.uid == userId;
+      }
+      
+      // Preference isolation
+      match /settings/{doc} {
+        allow read, write: if request.auth != null && request.auth.uid == userId;
+      }
+    }
+    
+    // Global broadcasts are read-only for all authenticated users
+    match /broadcasts/{broadcastId} {
+      allow read: if request.auth != null;
+      allow write: if false;  // Managed by Cloud Functions or Admin SDK only
+    }
+  }
+}
