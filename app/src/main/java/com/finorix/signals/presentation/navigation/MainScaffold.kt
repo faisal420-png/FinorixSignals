@@ -1,8 +1,5 @@
 package com.finorix.signals.presentation.navigation
 
-
-
-
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.horizontalScroll
@@ -33,43 +30,74 @@ import com.finorix.signals.util.neonBorder
 import com.finorix.signals.presentation.theme.*
 import com.finorix.signals.presentation.screens.*
 
-
-
-
 sealed class Screen(val route: String, val title: String, val icon: ImageVector) {
-    object Splash : Screen("splash", "SPLASH", Icons.Default.Home)
-    object Welcome : Screen("welcome", "WELCOME", Icons.Default.Home)
-    object Login : Screen("login", "LOGIN", Icons.Default.Home)
-    object Signup : Screen("signup", "SIGNUP", Icons.Default.Home)
-    object ForgotPassword : Screen("forgot_password", "FORGOT_PASSWORD", Icons.Default.Home)
-    object Home : Screen("home", "HOME", Icons.Default.Home)
-    object Signal : Screen("signal", "ACTIVE FINORIX SOFTWARE", Icons.Default.Settings)
-    object TrackOrder : Screen("track_order", "TRACK ORDER", Icons.Default.Search)
-    object Settings : Screen("settings", "SETTINGS", Icons.Default.Settings)
-    object Profile : Screen("profile", "PROFILE", Icons.Default.Person)
+    object Splash : Screen("splash", "Splash", Icons.Default.Home)
+    object Home : Screen("home", "Signals", Icons.Default.Home)
+    object Search : Screen("search", "Search", Icons.Default.Search)
+    object TrackOrder : Screen("track_order", "Track", Icons.Default.Person)
+    object Settings : Screen("settings", "Settings", Icons.Default.Settings)
 }
 
-
-
-
-val topNavItems = listOf(
-    Screen.Signal,
-    Screen.TrackOrder,
-    Screen.Settings,
-    Screen.Profile
-)
-
-
-
-
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainScaffold() {
     val navController = rememberNavController()
     val navBackStackEntry by navController.currentBackStackEntryAsState()
-    val currentRoute = navBackStackEntry?.destination?.route ?: Screen.Home.route
+    val currentRoute = navBackStackEntry?.destination?.route
 
-
-
-
-    Column(
-        modifier = Modifier
+    Scaffold(
+        bottomBar = {
+            if (currentRoute != Screen.Splash.route) {
+                NavigationBar(
+                    containerColor = PureBlack,
+                    modifier = Modifier.height(80.dp).neonBorder(
+                        shape = RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp),
+                        strokeWidth = 1.dp
+                    )
+                ) {
+                    val items = listOf(Screen.Home, Screen.Search, Screen.TrackOrder, Screen.Settings)
+                    items.forEach { screen ->
+                        NavigationBarItem(
+                            icon = { Icon(screen.icon, contentDescription = screen.title) },
+                            label = { Text(screen.title) },
+                            selected = currentRoute == screen.route,
+                            onClick = {
+                                if (currentRoute != screen.route) {
+                                    navController.navigate(screen.route) {
+                                        popUpTo(navController.graph.startDestinationId)
+                                        launchSingleTop = true
+                                    }
+                                }
+                            },
+                            colors = NavigationBarItemDefaults.colors(
+                                selectedIconColor = NeonGreen,
+                                unselectedIconColor = Color.Gray,
+                                indicatorColor = Color.Transparent
+                            )
+                        )
+                    }
+                }
+            }
+        }
+    ) { paddingValues ->
+        NavHost(
+            navController = navController,
+            startDestination = Screen.Splash.route,
+            modifier = Modifier.padding(paddingValues)
+        ) {
+            composable(Screen.Splash.route) {
+                SplashScreen(onSplashFinished = {
+                    navController.navigate(Screen.Home.route) {
+                        popUpTo(Screen.Splash.route) { inclusive = true }
+                    }
+                })
+            }
+            composable(Screen.Home.route) { HomeScreen() }
+            composable(Screen.Search.route) { SearchScreen() }
+            composable(Screen.TrackOrder.route) {
+                TrackOrderScreen(onBackClick = { navController.popBackStack() })
+            }
+            composable(Screen.Settings.route) { SettingsScreen() }
+        }
+    }
+}
