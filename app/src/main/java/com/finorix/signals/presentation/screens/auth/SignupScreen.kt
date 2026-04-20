@@ -23,6 +23,7 @@ import com.finorix.signals.domain.model.Result
 import com.finorix.signals.presentation.theme.NeonGreen
 import com.finorix.signals.presentation.theme.PureBlack
 import com.finorix.signals.presentation.theme.ErrorRed
+import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

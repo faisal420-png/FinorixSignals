@@ -159,7 +159,9 @@ fun Modifier.animatedGradientBorder(
         
         drawIntoCanvas { canvas ->
             canvas.save()
-            canvas.rotate(rotate, size.width / 2, size.height / 2)
+            canvas.translate(size.width / 2, size.height / 2)
+            canvas.rotate(rotate)
+            canvas.translate(-size.width / 2, -size.height / 2)
             canvas.drawRoundRect(
                 0f, 0f, size.width, size.height,
                 shape.topStart.toPx(size, this),

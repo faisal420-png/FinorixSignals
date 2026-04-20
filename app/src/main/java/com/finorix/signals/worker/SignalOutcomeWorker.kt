@@ -37,7 +37,7 @@ class SignalOutcomeWorker @AssistedInject constructor(
                         val candles = candleResult.data
                         // The signal was at signal.timestamp. It expires at expiresAt.
                         // We check the candle that formed/closed around expiresAt.
-                        val closingCandle = candles.find { it.timestamp >= expiresAt } ?: candles.last()
+                        val closingCandle = candles.find { it.openTime >= expiresAt } ?: candles.last()
                         
                         val isWin = if (signal.direction == SignalDirection.UP) {
                             closingCandle.close > closingCandle.open

@@ -4,6 +4,7 @@ import androidx.compose.animation.core.*
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -18,6 +19,7 @@ import com.finorix.signals.R
 import com.finorix.signals.presentation.theme.NeonGreen
 import com.finorix.signals.presentation.theme.PureBlack
 import com.finorix.signals.util.neonGlow
+import androidx.compose.material.icons.Icons
 import kotlinx.coroutines.delay
 
 @Composable
