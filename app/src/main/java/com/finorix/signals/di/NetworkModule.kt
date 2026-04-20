@@ -15,6 +15,10 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 import javax.inject.Named
 import javax.inject.Singleton
+import com.google.gson.Gson
+import com.finorix.signals.data.remote.api.OpenRouterApi
+import com.finorix.signals.domain.repository.AiRepository
+import com.finorix.signals.data.repository.AiRepositoryImpl
 
 @Module
 @InstallIn(SingletonComponent::class)
