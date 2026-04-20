@@ -34,4 +34,6 @@ jobs:
           FIREBASE_APP_DISTRIBUTION_CREDENTIALS: ${{ secrets.FIREBASE_APP_DISTRIBUTION_CREDENTIALS }}
           FIREBASE_APP_ID_DEBUG: ${{ secrets.FIREBASE_APP_ID_DEBUG }}
           FIREBASE_APP_ID_RELEASE: ${{ secrets.FIREBASE_APP_ID_RELEASE }}
-        run: gradle assembleDebug appDistributionUploadDebug
+        run: |
+          chmod +x gradlew
+          ./gradlew assembleDebug appDistributionUploadDebug
