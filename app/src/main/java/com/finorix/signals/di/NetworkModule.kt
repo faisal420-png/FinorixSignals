@@ -19,7 +19,6 @@ import com.google.gson.Gson
 import com.finorix.signals.data.remote.api.OpenRouterApi
 import com.finorix.signals.domain.repository.AiRepository
 import com.finorix.signals.data.repository.AiRepositoryImpl
-import com.finorix.signals.domain.repository.UserPreferencesRepository
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -105,7 +104,7 @@ object NetworkModule {
     fun provideAiRepository(
         api: OpenRouterApi,
         gson: Gson,
-        prefs: UserPreferencesRepository
+        prefs: com.finorix.signals.domain.repository.UserPreferencesRepository
     ): AiRepository {
         return AiRepositoryImpl(api, gson, prefs)
     }

@@ -23,7 +23,6 @@ import com.finorix.signals.R
 import com.finorix.signals.presentation.theme.*
 import com.finorix.signals.util.neonBorder
 import com.finorix.signals.util.neonGlow
-import com.finorix.signals.util.animatedGradientBorder
 import com.finorix.signals.domain.model.Candle
 
 @Composable

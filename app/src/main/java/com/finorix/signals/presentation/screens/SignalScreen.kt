@@ -28,7 +28,6 @@ import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -55,6 +54,7 @@ fun SignalScreen(
     
     val context = LocalContext.current
     val haptic = LocalHapticFeedback.current
+    var showAiSheet by remember { mutableStateOf(false) }
 
     LaunchedEffect(uiState) {
         val state = uiState
@@ -140,7 +140,7 @@ fun SignalScreen(
 
         Spacer(modifier = Modifier.height(24.dp))
 
-        var showAiSheet by remember { mutableStateOf(false) }
+        Spacer(modifier = Modifier.height(24.dp))
 
         // BOTTOM: AI Button
         Button(
@@ -231,11 +231,7 @@ fun TimeframeSelector(selected: String, onSelect: (String) -> Unit) {
                     labelColor = NeonGreen,
                     containerColor = Color.Transparent
                 ),
-                border = FilterChipDefaults.filterChipBorder(
-                    enabled = true,
-                    selected = selected == tf,
-                    borderColor = NeonGreen
-                )
+                border = FilterChipDefaults.filterChipBorder(borderColor = NeonGreen)
             )
         }
     }
@@ -309,7 +305,7 @@ private fun drawEMA(candles: List<Candle>, period: Int, color: Color, scope: and
             if (index == 0) moveTo(offset.x, offset.y) else lineTo(offset.x, offset.y)
         }
     }
-    scope.drawPath(path, color, style = Stroke(width = scope.run { 2.dp.toPx() }))
+    scope.drawPath(path, color, style = Stroke(width = 2.dp.toPx()))
 }
 
 @Composable

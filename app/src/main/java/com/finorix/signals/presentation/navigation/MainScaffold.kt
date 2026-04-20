@@ -26,9 +26,6 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.finorix.signals.presentation.screens.*
-import com.finorix.signals.presentation.theme.*
-import com.finorix.signals.util.neonBorder
-import androidx.compose.material.icons.filled.Person
 
 sealed class Screen(val route: String, val title: String, val icon: ImageVector) {
     object Splash : Screen("splash", "SPLASH", Icons.Default.Home)
@@ -189,7 +186,7 @@ fun MainScaffold() {
                     Screen.TrackOrder.route,
                     enterTransition = { fadeIn(animationSpec = tween(500)) + slideInHorizontally() },
                     exitTransition = { fadeOut(animationSpec = tween(500)) + slideOutHorizontally() }
-                ) { TrackOrderScreen() }
+                ) { TrackOrderScreen(onBackClick = { navController.popBackStack() }) }
                 composable(
                     Screen.Settings.route,
                     enterTransition = { fadeIn(animationSpec = tween(500)) + slideInHorizontally() },

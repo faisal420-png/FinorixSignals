@@ -7,6 +7,7 @@ import com.finorix.signals.domain.repository.UserPreferencesRepository
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -85,7 +86,14 @@ class UserPreferencesRepositoryImpl @Inject constructor(
 
     override fun getPreferences(): Flow<com.finorix.signals.domain.repository.UserPreferences> = kotlinx.coroutines.flow.combine(
         minConfidence, defaultTimeframe, soundEnabled, vibrationEnabled, enabledPairs, selectedModel, analyticsEnabled
-    ) { minC, defT, sound, vib, pairs, model, analytics ->
+    ) { args: Array<Any?> ->
+        val minC = args[0] as Int
+        val defT = args[1] as String
+        val sound = args[2] as Boolean
+        val vib = args[3] as Boolean
+        val pairs = args[4] as Set<String>
+        val model = args[5] as String
+        val analytics = args[6] as Boolean
         com.finorix.signals.domain.repository.UserPreferences(minC, defT, sound, vib, pairs.toList(), model, analytics)
     }
 
