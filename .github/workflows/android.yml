@@ -1,12 +1,10 @@
 name: Android CI/CD
 
-
 on:
   push:
     branches: [ main, master ]
   pull_request:
     branches: [ main, master ]
-
 
 jobs:
   build:
@@ -24,7 +22,7 @@ jobs:
           cache: gradle
 
 
-            - name: Create google-services.json
+      - name: Create google-services.json
         env:
           GOOGLE_SERVICES_JSON: ${{ secrets.GOOGLE_SERVICES_JSON }}
         run: echo "$GOOGLE_SERVICES_JSON" > app/google-services.json
@@ -33,11 +31,7 @@ jobs:
       - name: Build and Upload to App Distribution
         env:
           OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
-          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-        run: |
-          if [ -f gradlew ]; then
-            chmod +x gradlew
-            ./gradlew assembleDebug appDistributionUploadDebug
-          else
-            gradle assembleDebug appDistributionUploadDebug
-          fi
+          FIREBASE_APP_DISTRIBUTION_CREDENTIALS: ${{ secrets.FIREBASE_APP_DISTRIBUTION_CREDENTIALS }}
+          FIREBASE_APP_ID_DEBUG: ${{ secrets.FIREBASE_APP_ID_DEBUG }}
+          FIREBASE_APP_ID_RELEASE: ${{ secrets.FIREBASE_APP_ID_RELEASE }}
+        run: ./gradlew assembleDebug appDistributionUploadDebug
