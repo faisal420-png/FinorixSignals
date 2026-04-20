@@ -1,6 +1,8 @@
 package com.finorix.signals.presentation.navigation
 
 
+
+
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.horizontalScroll
@@ -27,8 +29,11 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.compose.material.icons.filled.Person
+import com.finorix.signals.util.neonBorder
 import com.finorix.signals.presentation.theme.*
 import com.finorix.signals.presentation.screens.*
+
+
 
 
 sealed class Screen(val route: String, val title: String, val icon: ImageVector) {
@@ -45,12 +50,16 @@ sealed class Screen(val route: String, val title: String, val icon: ImageVector)
 }
 
 
+
+
 val topNavItems = listOf(
     Screen.Signal,
     Screen.TrackOrder,
     Screen.Settings,
     Screen.Profile
 )
+
+
 
 
 @Composable
@@ -60,12 +69,7 @@ fun MainScaffold() {
     val currentRoute = navBackStackEntry?.destination?.route ?: Screen.Home.route
 
 
+
+
     Column(
         modifier = Modifier
-            .fillMaxSize()
-            .background(PureBlack)
-            .padding(16.dp)
-            .statusBarsPadding()
-    ) {
-        // Top Pill-style Navigation Bar
-    val authViewModel: com.finorix.signals.presentation.screens.auth.AuthViewModel = androidx.hilt.navigation.compose.hiltViewModel()
