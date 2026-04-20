@@ -29,9 +29,11 @@ jobs:
 
 
       - name: Create google-services.json
-        env:
-          GOOGLE_SERVICES_JSON_B64: ${{ secrets.GOOGLE_SERVICES_JSON_B64 }}
-        run: echo "$GOOGLE_SERVICES_JSON_B64" | base64 -d > app/google-services.json
+        run: |
+          echo "${{ secrets.GOOGLE_SERVICES_JSON_B64 }}" | base64 -d > app/google-services.json
+
+      - name: Grant Execute Permission to Gradlew
+        run: chmod +x gradlew
 
 
 
@@ -42,4 +44,4 @@ jobs:
           FIREBASE_APP_DISTRIBUTION_CREDENTIALS: ${{ secrets.FIREBASE_APP_DISTRIBUTION_CREDENTIALS }}
           FIREBASE_APP_ID_DEBUG: ${{ secrets.FIREBASE_APP_ID_DEBUG }}
           FIREBASE_APP_ID_RELEASE: ${{ secrets.FIREBASE_APP_ID_RELEASE }}
-        run: gradle assembleDebug appDistributionUploadDebug
+        run: ./gradlew assembleDebug appDistributionUploadDebug

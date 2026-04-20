@@ -8,6 +8,7 @@ plugins {
     id("com.google.gms.google-services")
     id("com.google.firebase.crashlytics")
     id("com.google.firebase.appdistribution")
+    id("org.jetbrains.kotlin.plugin.compose")
 }
 
 
@@ -32,7 +33,7 @@ android {
         val openRouterApiKey = properties.getProperty("OPENROUTER_API_KEY") 
             ?: System.getenv("OPENROUTER_API_KEY") 
             ?: ""
-        buildConfigField("String", "OPENROUTER_API_KEY", "\"$openRouterApiKey\"")
+        buildConfigField("String", "OPENROUTER_API_KEY", "\"${openRouterApiKey}\"")
 
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -53,6 +54,11 @@ android {
 
 
         debug {
+            firebaseAppDistribution {
+                appId = System.getenv("FIREBASE_APP_ID_DEBUG") ?: ""
+                artifactType = "APK"
+                releaseNotesFile = "release-notes.txt"
+            }
         }
     }
     compileOptions {
@@ -65,9 +71,6 @@ android {
     buildFeatures {
         compose = true
         buildConfig = true
-    }
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.10"
     }
     packaging {
         resources {
